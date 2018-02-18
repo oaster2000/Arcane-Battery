@@ -16,7 +16,7 @@ public class TESRStonePedestal
   {
     if (!te.isInvalid() && te != null)
     {
-     if (te.getItem() != null)
+     if (te.getFlowerItemStack().getItem() != null)
       {
         GlStateManager.pushMatrix();
         GlStateManager.translate(x + 0.5D, y + 0.7D, z + 0.5D);
@@ -24,7 +24,7 @@ public class TESRStonePedestal
         GlStateManager.scale(0.75D, 0.75D, 0.75D);
         float angle = ((float)te.getWorld().getTotalWorldTime() + partialTicks) / 20.0F * 57.295776F;
         GlStateManager.rotate(angle, 0.0F, 1.0F, 0.0F);
-        Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(te.getItem()), ItemCameraTransforms.TransformType.GROUND);
+        Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(te.getFlowerItemStack().getItem(), 1, te.getFlowerPotData()), ItemCameraTransforms.TransformType.GROUND);
         GlStateManager.popMatrix();
       }
     }

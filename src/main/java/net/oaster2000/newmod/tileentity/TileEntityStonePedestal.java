@@ -13,14 +13,16 @@ import net.minecraft.util.datafix.DataFixer;
 public class TileEntityStonePedestal extends TileEntity
 {
     private Item flowerPotItem;
+    private int flowerPotData;
 
     public TileEntityStonePedestal()
     {
     }
 
-    public TileEntityStonePedestal(Item potItem)
+    public TileEntityStonePedestal(Item potItem, int potData)
     {
         this.flowerPotItem = potItem;
+        this.flowerPotData = potData;
     }
 
     public static void registerFixesFlowerPot(DataFixer fixer)
@@ -32,6 +34,7 @@ public class TileEntityStonePedestal extends TileEntity
         super.writeToNBT(compound);
         ResourceLocation resourcelocation = Item.REGISTRY.getNameForObject(this.flowerPotItem);
         compound.setString("Item", resourcelocation == null ? "" : resourcelocation.toString());
+        compound.setInteger("Data", this.flowerPotData);
         return compound;
     }
 
@@ -47,12 +50,14 @@ public class TileEntityStonePedestal extends TileEntity
         {
             this.flowerPotItem = Item.getItemById(compound.getInteger("Item"));
         }
+
+        this.flowerPotData = compound.getInteger("Data");
     }
 
     @Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
-        return new SPacketUpdateTileEntity(this.pos, 3, this.getUpdateTag());
+        return new SPacketUpdateTileEntity(this.pos, 5, this.getUpdateTag());
     }
 
     public NBTTagCompound getUpdateTag()
@@ -63,21 +68,22 @@ public class TileEntityStonePedestal extends TileEntity
     public void setItemStack(ItemStack stack)
     {
         this.flowerPotItem = stack.getItem();
+        this.flowerPotData = stack.getMetadata();
     }
 
-    public void setItem(Item item)
+    public ItemStack getFlowerItemStack()
     {
-        this.flowerPotItem = item;
-    }
-
-    public ItemStack getItemStack()
-    {
-        return this.flowerPotItem == null ? ItemStack.EMPTY : new ItemStack(this.flowerPotItem, 1);
+        return this.flowerPotItem == null ? ItemStack.EMPTY : new ItemStack(this.flowerPotItem, 1, this.flowerPotData);
     }
 
     @Nullable
-    public Item getItem()
+    public Item getFlowerPotItem()
     {
         return this.flowerPotItem;
+    }
+
+    public int getFlowerPotData()
+    {
+        return this.flowerPotData;
     }
 }

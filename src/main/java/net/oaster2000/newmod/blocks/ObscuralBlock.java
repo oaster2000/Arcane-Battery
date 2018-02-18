@@ -29,6 +29,7 @@ public class ObscuralBlock extends Block {
 		this.setRegistryName(unlocalizedName);
 		this.setHardness(hardness);
 		this.setResistance(resistance);
+		this.setLightLevel(8f);
 	}
 
 	public ObscuralBlock(String unlocalizedName, float hardness, float resistance) {
@@ -57,23 +58,22 @@ public class ObscuralBlock extends Block {
 			}
 
 		}
-		if (!worldIn.isRemote) {
-			if (isItemCentral(playerIn.inventory.getCurrentItem().getItem())) {
-				createItem(worldIn, playerIn.inventory.getCurrentItem().getItem(), pos, playerIn, state);
-			}
+		if (isItemCentral(playerIn.inventory.getCurrentItem().getItem())) {
+			createItem(worldIn, playerIn.inventory.getCurrentItem().getItem(), pos, playerIn, state);
 		}
 		return true;
 	}
 
 	public void createItem(World world, Item item, BlockPos pos, EntityPlayer playerIn, IBlockState state) {
-		for (int i = 0; i < ObscuralRecipies.recipies.size(); i++) {
-			if (ObscuralRecipies.recipies.get(i).getCentralItem().equals(item)) {
-				if (checkRecipie(world, ObscuralRecipies.recipies.get(i), pos.getX(), pos.getY(), pos.getZ(), state))
+		for (ObscuralRecipies recipe : ObscuralRecipies.recipies) {
+			if (recipe.getCentralItem().equals(item) && checkRecipie(world, recipe, pos.getX(), pos.getY(), pos.getZ(), state)) {
+				updateBlocks(world, pos.getX(), pos.getY(), pos.getZ());
+				if (!world.isRemote)
 					world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY() + 1, pos.getZ(),
-							new ItemStack(ObscuralRecipies.recipies.get(i).getResult())));
+							new ItemStack(recipe.getResult())));
 				for (int j = 0; j < playerIn.inventory.getSizeInventory(); j++) {
 					ItemStack stackInSlot = playerIn.inventory.getStackInSlot(j);
-					ItemStack stack = new ItemStack(ObscuralRecipies.recipies.get(i).centralItem);
+					ItemStack stack = new ItemStack(recipe.centralItem);
 					if (stackInSlot.getItem().equals(stack.getItem())) {
 						stack.shrink(1);
 						playerIn.inventory.setInventorySlotContents(j, stack);
@@ -83,6 +83,35 @@ public class ObscuralBlock extends Block {
 				}
 				break;
 			}
+		}
+	}
+
+	private void updateBlocks(World world, int x, int y, int z) {
+		TileEntityStonePedestal ped0 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x + 2, y, z + 1));
+		TileEntityStonePedestal ped1 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x + 2, y, z - 1));
+		TileEntityStonePedestal ped2 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x - 2, y, z + 1));
+		TileEntityStonePedestal ped3 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x - 2, y, z - 1));
+		TileEntityStonePedestal ped4 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x + 1, y, z + 2));
+		TileEntityStonePedestal ped5 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x - 1, y, z + 2));
+		TileEntityStonePedestal ped6 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x + 1, y, z - 2));
+		TileEntityStonePedestal ped7 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x - 1, y, z - 2));
+
+		List<TileEntityStonePedestal> tileEntity = new ArrayList<TileEntityStonePedestal>();
+		tileEntity.add(ped0);
+		tileEntity.add(ped1);
+		tileEntity.add(ped2);
+		tileEntity.add(ped3);
+		tileEntity.add(ped4);
+		tileEntity.add(ped5);
+		tileEntity.add(ped6);
+		tileEntity.add(ped7);
+
+		for (TileEntityStonePedestal te : tileEntity) {
+			te.setItemStack(ItemStack.EMPTY);
+			world.markBlockRangeForRenderUpdate(te.getPos(), te.getPos());
+			world.notifyBlockUpdate(te.getPos(), world.getBlockState(te.getPos()), world.getBlockState(te.getPos()), 3);
+			world.scheduleBlockUpdate(te.getPos(), te.getBlockType(), 0, 0);
+			te.markDirty();
 		}
 	}
 
@@ -97,7 +126,7 @@ public class ObscuralBlock extends Block {
 		TileEntityStonePedestal ped5 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x - 1, y, z + 2));
 		TileEntityStonePedestal ped6 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x + 1, y, z - 2));
 		TileEntityStonePedestal ped7 = (TileEntityStonePedestal) world.getTileEntity(new BlockPos(x - 1, y, z - 2));
-		
+
 		List<TileEntityStonePedestal> possibleOutputs = new ArrayList<TileEntityStonePedestal>();
 		possibleOutputs.add(ped0);
 		possibleOutputs.add(ped1);
@@ -108,16 +137,13 @@ public class ObscuralBlock extends Block {
 		possibleOutputs.add(ped6);
 		possibleOutputs.add(ped7);
 
-		for (Item item : recipe.outerItems) {
+		for (int i = 0; i < recipe.getOuterItems().length; i++) {
+			Item item = recipe.getOuterItems()[i];
+			int data = recipe.getOuterItemsData()[i];
 			for (TileEntityStonePedestal te : possibleOutputs) {
-				if (te.getItem().equals(item)) {
-					te.setItemStack(ItemStack.EMPTY);
+				if (te.getFlowerItemStack().getItem().equals(item) && te.getFlowerPotData() == data) {
 					numberOfItemsPresent++;
 					possibleOutputs.remove(te);
-					world.markBlockRangeForRenderUpdate(te.getPos(), te.getPos());
-					world.notifyBlockUpdate(te.getPos(), world.getBlockState(te.getPos()), world.getBlockState(te.getPos()), 3);
-					world.scheduleBlockUpdate(te.getPos(),te.getBlockType(),0,0);
-					te.markDirty();
 					break;
 				}
 			}

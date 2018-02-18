@@ -52,7 +52,7 @@ public class StonePedestalBlock extends BlockContainer {
 		if (tileentityflowerpot == null) {
 			return false;
 		} else {
-			ItemStack itemstack1 = tileentityflowerpot.getItemStack();
+			ItemStack itemstack1 = tileentityflowerpot.getFlowerItemStack();
 
 			if (itemstack1.isEmpty()) {
 				if (!itemstack.isEmpty()) {
@@ -84,7 +84,7 @@ public class StonePedestalBlock extends BlockContainer {
 	 */
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		Item item = null;
-		return new TileEntityStonePedestal(item);
+		return new TileEntityStonePedestal(item, meta);
 	}
 
 	@Nullable
