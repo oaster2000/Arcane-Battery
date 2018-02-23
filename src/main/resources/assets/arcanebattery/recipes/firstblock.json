@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"SSS",
+		"SDS",
+		"SSS"
+	],
+	"key": {
+		"D": {
+			"item": "arcanebattery:pcrystal"
+		},
+		"S": {
+			"item": "arcanebattery:dgem"
+		}
+	},
+	"result": {
+		"item": "arcanebattery:firstblock"
+	}
+}

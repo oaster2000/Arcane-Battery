@@ -1,0 +1,6 @@
+{
+    "parent":"arcanebattery:block/dStone_ore",
+    "textures": {
+        "all": "arcanebattery:blocks/dStone_ore"
+    }
+}

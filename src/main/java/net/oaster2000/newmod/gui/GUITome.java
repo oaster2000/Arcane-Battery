@@ -19,11 +19,11 @@ import net.oaster2000.newmod.research.Research.EnumResearchState;
 
 public class GUITome extends GuiScreen {
 
-	private static final ResourceLocation BG_GUI_TEXTURES = new ResourceLocation("newmod",
+	private static final ResourceLocation BG_GUI_TEXTURES = new ResourceLocation("arcanebattery",
 			"textures/gui/obscural_bg.png");
-	private static final ResourceLocation FG_GUI_TEXTURES = new ResourceLocation("newmod",
+	private static final ResourceLocation FG_GUI_TEXTURES = new ResourceLocation("arcanebattery",
 			"textures/gui/obscural_fg.png");
-	private static final ResourceLocation ICON_GUI_TEXTURES = new ResourceLocation("newmod",
+	private static final ResourceLocation ICON_GUI_TEXTURES = new ResourceLocation("arcanebattery",
 			"textures/gui/obscural_icons.png");
 
 	RenderItem rI;

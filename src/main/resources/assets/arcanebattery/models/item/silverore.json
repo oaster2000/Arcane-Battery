@@ -1,0 +1,6 @@
+{
+    "parent":"arcanebattery:block/silverOre",
+    "textures": {
+        "all": "arcanebattery:blocks/silverOre"
+    }
+}

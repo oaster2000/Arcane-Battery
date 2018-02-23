@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "arcanebattery:obscural" },
+		"inventory": { "model": "arcanebattery:obscural" }
+    }
+}

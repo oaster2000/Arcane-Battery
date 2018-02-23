@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=north": { "model": "newmod:sunGen" },
-        "facing=south": { "model": "newmod:sunGen", "y": 180 },
-        "facing=west":  { "model": "newmod:sunGen", "y": 270 },
-        "facing=east":  { "model": "newmod:sunGen", "y": 90 }
-    }
-}

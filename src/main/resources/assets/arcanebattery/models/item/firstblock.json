@@ -1,0 +1,6 @@
+{
+    "parent":"arcanebattery:block/firstBlock",
+    "textures": {
+        "all": "arcanebattery:blocks/firstBlock"
+    }
+}

@@ -1,6 +1,0 @@
-{
-    "variants": {
-        "normal": { "model": "newmod:obscural" },
-		"inventory": { "model": "newmod:obscural" }
-    }
-}

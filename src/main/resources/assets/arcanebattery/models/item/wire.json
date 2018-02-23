@@ -1,0 +1,6 @@
+{
+    "parent":"arcanebattery:block/cable",
+    "textures": {
+        "all": "arcanebattery:blocks/wire"
+    }
+}

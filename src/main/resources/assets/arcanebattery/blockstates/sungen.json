@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "arcanebattery:sunGen" },
+        "facing=south": { "model": "arcanebattery:sunGen", "y": 180 },
+        "facing=west":  { "model": "arcanebattery:sunGen", "y": 270 },
+        "facing=east":  { "model": "arcanebattery:sunGen", "y": 90 }
+    }
+}

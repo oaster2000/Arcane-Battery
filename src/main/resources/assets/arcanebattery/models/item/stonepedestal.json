@@ -1,0 +1,6 @@
+{
+    "parent":"arcanebattery:block/stonePedestal",
+    "textures": {
+        "all": "arcanebattery:blocks/stonePedestal"
+    }
+}

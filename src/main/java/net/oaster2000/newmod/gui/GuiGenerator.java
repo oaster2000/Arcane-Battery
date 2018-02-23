@@ -15,7 +15,7 @@ import net.oaster2000.newmod.tileentity.TileEntityGenerator;
 
 @SideOnly(Side.CLIENT)
 public class GuiGenerator extends GuiContainer {
-	private static final ResourceLocation FURNACE_GUI_TEXTURES = new ResourceLocation("newmod", "textures/gui/gen.png");
+	private static final ResourceLocation FURNACE_GUI_TEXTURES = new ResourceLocation("arcanebattery", "textures/gui/gen.png");
 	/** The player inventory bound to this GUI. */
 	private final InventoryPlayer playerInventory;
 	private final TileEntityGenerator tileFurnace;

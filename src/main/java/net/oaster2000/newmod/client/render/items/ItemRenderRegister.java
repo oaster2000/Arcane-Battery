@@ -39,6 +39,9 @@ public class ItemRenderRegister {
 		reg(ModItems.ironPlate);
 		reg(ModItems.goldPlate);
 		reg(ModItems.magicalTome);
+		reg(ModItems.fireSpell);
+		reg(ModItems.waterSpell);
+		reg(ModItems.digSpell);
 	}
 	
 	public static void reg(Item item){

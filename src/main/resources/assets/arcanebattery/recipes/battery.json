@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" T ",
+		"TRT",
+		"TCT"
+	],
+	"key": {
+		"T": {
+			"item": "arcanebattery:tinplate"
+		},
+		"R": {
+			"item": "minecraft:redstone"
+		},
+		"C": {
+			"item": "arcanebattery:wire"
+		}
+	},
+	"result": {
+		"item": "arcanebattery:battery"
+	}
+}

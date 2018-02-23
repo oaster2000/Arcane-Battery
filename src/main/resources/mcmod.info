@@ -1,9 +1,9 @@
 [{
 
-"modid": "newmod",
-"name": "Scientific Magic",
-"description": "This mod combines the ideas of Magic and Science to enhance your Minecraft experience",
-"mcversion": "1.10.2",
+"modid": "arcanebattery",
+"name": "Arcane Battery",
+"description": "Explore the realms of magic and science!",
+"mcversion": "1.12",
 "version": "1.0",
 "url": "",
 "authors": [ "oaster2000" ],

@@ -1,0 +1,27 @@
+{
+	"forge_marker": 1,
+	"defaults": {},
+    "variants": {
+		"connection": {
+			"none": { "model": "arcanebattery:cable_dot" },
+			"ud": { "model": "arcanebattery:cable" },
+			"un": { "model": "arcanebattery:cable_un" },
+			"uns": { "model": "arcanebattery:cable_uns" },
+			"une": { "model": "arcanebattery:cable_une" },
+			"unw": { "model": "arcanebattery:cable_unw" },
+			"us": { "model": "arcanebattery:cable_us" },
+			"use": { "model": "arcanebattery:cable_use" },
+			"usw": { "model": "arcanebattery:cable_usw" },
+			"ue": { "model": "arcanebattery:cable_ue" },
+			"uew": { "model": "arcanebattery:cable_uew" },
+			"uw": { "model": "arcanebattery:cable_uw" },
+			"u": { "model": "arcanebattery:cable_u" },
+			"d": { "model": "arcanebattery:cable_d" },
+			"n": { "model": "arcanebattery:cable_n" },
+			"s": { "model": "arcanebattery:cable_s" },
+			"e": { "model": "arcanebattery:cable_e" },
+			"w": { "model": "arcanebattery:cable_w" },
+			"all": { "model": "arcanebattery:cable" }
+		}
+    }
+}

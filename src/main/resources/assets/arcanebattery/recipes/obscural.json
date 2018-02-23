@@ -1,0 +1,27 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"RBR",
+		" E ",
+		"SSS"
+	],
+	"key": {
+		"B": {
+			"item": "minecraft:beacon"
+		},
+		"E": {
+			"item": "minecraft:end_rod"
+		},
+		"S": {
+			"item": "minecraft:stone_slab",
+			"data": 0
+		},
+		"R": {
+			"item": "minecraft:stonebrick",
+			"data": 0
+		}
+	},
+	"result": {
+		"item": "arcanebattery:obscural"
+	}
+}

@@ -40,6 +40,9 @@ public final class ModItems {
 	public static Item ironPlate;
 	public static Item goldPlate;
 	public static Item magicalTome;
+	public static Item fireSpell;
+	public static Item waterSpell;
+	public static Item digSpell;
 
 	public static void createItems() {
 		hammer = (new HammerItem("hammer"));
@@ -70,6 +73,9 @@ public final class ModItems {
 		ironPlate = (new BasicItem("ironPlate"));
 		goldPlate = (new BasicItem("goldPlate"));
 		magicalTome = (new TomeItem("magicalTome"));
+		fireSpell = (new SpellItem("firespell", "fire", "power"));
+		waterSpell = (new SpellItem("waterspell", "water", "power"));
+		digSpell = (new SpellItem("digspell", "dig", "faith"));
 	}
 
 	@Mod.EventBusSubscriber(modid = Main.MODID)
@@ -88,7 +94,7 @@ public final class ModItems {
 					hCrystal, battery, ironDust, goldDust, dDust, stringUniverse, matter,
 					bronze, copper, silver, tin, bronzeDust, copperDust, silverDust,
 					tinDust, bronzePlate, copperPlate, silverPlate, tinPlate, ironPlate,
-					goldPlate, magicalTome};
+					goldPlate, magicalTome, fireSpell, waterSpell, digSpell};
 
 			final IForgeRegistry<Item> registry = event.getRegistry();
 

@@ -1,0 +1,6 @@
+{
+    "parent":"arcanebattery:block/tinOre",
+    "textures": {
+        "all": "arcanebattery:blocks/tinOre"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "parent":"arcanebattery:block/copperOre",
+    "textures": {
+        "all": "arcanebattery:blocks/copperOre"
+    }
+}

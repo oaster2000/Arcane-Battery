@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "arcanebattery:deCon_on" },
+        "facing=south": { "model": "arcanebattery:deCon_on", "y": 180 },
+        "facing=west":  { "model": "arcanebattery:deCon_on", "y": 270 },
+        "facing=east":  { "model": "arcanebattery:deCon_on", "y": 90 }
+    }
+}

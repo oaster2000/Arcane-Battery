@@ -15,7 +15,7 @@ import net.oaster2000.newmod.tileentity.TileEntityDeconstructor;
 @SideOnly(Side.CLIENT)
 public class GuiDeconstructor extends GuiContainer
 {
-    private static final ResourceLocation FURNACE_GUI_TEXTURES = new ResourceLocation("newmod", "textures/gui/macerator.png");
+    private static final ResourceLocation FURNACE_GUI_TEXTURES = new ResourceLocation("arcanebattery", "textures/gui/macerator.png");
     /** The player inventory bound to this GUI. */
     private final InventoryPlayer playerInventory;
     private final TileEntityDeconstructor tileFurnace;
