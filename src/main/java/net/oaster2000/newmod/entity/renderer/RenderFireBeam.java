@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -49,22 +50,16 @@ public class RenderFireBeam
       y = posY;
       z = posZ;
       
-      GL11.glPushMatrix();
-      GL11.glTranslatef((float)x, (float)y, (float)z);
+      GlStateManager.pushMatrix();
+      GlStateManager.translate((float)x, (float)y, (float)z);
       if ((player == clientPlayer) && (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0))
       {
         if (player.isSneaking()) {
-          GL11.glTranslatef((float)x, (float)y - 0.05F, (float)z);
+        	GlStateManager.translate((float)x, (float)y - 0.05F, (float)z);
         }
       }
       Tessellator tessellator = Tessellator.getInstance();
       BufferBuilder bb = tessellator.getBuffer();
-      GL11.glDisable(3553);
-      GL11.glDisable(2896);
-      GL11.glDisable(2884);
-      GL11.glEnable(3042);
-      GL11.glBlendFunc(770, 32772);
-      GL11.glAlphaFunc(516, 0.003921569F);
       for (int beam = 0; beam < 2; beam++)
       {
         float scale = 1.03F;
@@ -84,65 +79,61 @@ public class RenderFireBeam
         int layers = 10 + Minecraft.getMinecraft().gameSettings.ambientOcclusion * 30;
         for (int count = 0; count <= layers; count++)
         {
-          GL11.glPushMatrix();
+        	GlStateManager.pushMatrix();
           if (count < layers)
           {
             Color color = Color.RED;
             
-            GL11.glColor4f(color.getRed() / 255.0F, color.getGreen() / 255.0F, color.getBlue() / 255.0F, 1.0F / layers / 2.0F);
-            GL11.glDepthMask(false);
+            GlStateManager.color(color.getRed() / 255.0F, color.getGreen() / 255.0F, color.getBlue() / 255.0F, 1.0F / layers / 2.0F);
+            GlStateManager.depthMask(false);
           }
           else
           {
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GL11.glDepthMask(true);
+        	  GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        	  GlStateManager.depthMask(true);
           }
           double size = 0.25D + (count < layers ? count * (1.25D / layers) : 0.0D);
           double width = 0.0625D * size * scale;
           double height = 0.03125D * size * scale;
           double length = src.distanceTo(dst) + (count < layers ? count * (1.0D / layers) : 0.0D) * 0.0625D;
           
-          GL11.glTranslated(src.x, src.y, src.z);
+          GlStateManager.translate(src.x, src.y, src.z);
           if ((player == clientPlayer) && (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0))
           {
-            GL11.glRotated(-median(player.rotationYaw, player.prevRotationYaw) - (beam * 2 - 1) * (32.0D / length) * 0.20999999344348907D, 0.0D, 1.0D, 0.0D);
-            GL11.glRotated(median(player.rotationPitch, player.prevRotationPitch), 1.0D, 0.0D, 0.0D);
+        	GlStateManager.rotate((float) (-median(player.rotationYaw, player.prevRotationYaw) - (beam * 2 - 1) * (32.0D / length) * 0.20999999344348907D), 0.0f, 1.0f, 0.0f);
+        	GlStateManager.rotate((float)median(player.rotationPitch, player.prevRotationPitch), 1.0f, 0.0f, 0.0f);
           }
           else
           {
-            GL11.glRotated(-median(player.rotationYawHead, player.prevRotationYawHead) - (beam * 2 - 1) * (32.0D / length) * 0.20999999344348907D, 0.0D, 1.0D, 0.0D);
-            GL11.glRotated(median(player.rotationPitch, player.prevRotationPitch), 1.0D, 0.0D, 0.0D);
+        	GlStateManager.rotate((float) (-median(player.rotationYawHead, player.prevRotationYawHead) - (beam * 2 - 1) * (32.0D / length) * 0.20999999344348907D), 0.0f, 1.0f, 0.0f);
+        	GlStateManager.rotate(median(player.rotationPitch, player.prevRotationPitch), 1.0f, 0.0f, 0.0f);
           }
           bb.begin(7, DefaultVertexFormats.POSITION_TEX_NORMAL);
-          bb.pos(-width, height, length);
-          bb.pos(width, height, length);
-          bb.pos(width, height, 0.0D);
-          bb.pos(-width, height, 0.0D);
-          bb.pos(width, -height, 0.0D);
-          bb.pos(width, -height, length);
-          bb.pos(-width, -height, length);
-          bb.pos(-width, -height, 0.0D);
-          bb.pos(-width, -height, 0.0D);
-          bb.pos(-width, -height, length);
-          bb.pos(-width, height, length);
-          bb.pos(-width, height, 0.0D);
-          bb.pos(width, height, length);
-          bb.pos(width, -height, length);
-          bb.pos(width, -height, 0.0D);
-          bb.pos(width, height, 0.0D);
-          bb.pos(width, -height, length);
-          bb.pos(width, height, length);
-          bb.pos(-width, height, length);
-          bb.pos(-width, -height, length);
-          bb.finishDrawing();;
-          GL11.glPopMatrix();
+          bb.pos(-width, height, length).endVertex();
+          bb.pos(width, height, length).endVertex();
+          bb.pos(width, height, 0.0D).endVertex();
+          bb.pos(-width, height, 0.0D).endVertex();
+          bb.pos(width, -height, 0.0D).endVertex();
+          bb.pos(width, -height, length).endVertex();
+          bb.pos(-width, -height, length).endVertex();
+          bb.pos(-width, -height, 0.0D).endVertex();
+          bb.pos(-width, -height, 0.0D).endVertex();
+          bb.pos(-width, -height, length).endVertex();
+          bb.pos(-width, height, length).endVertex();
+          bb.pos(-width, height, 0.0D).endVertex();
+          bb.pos(width, height, length).endVertex();
+          bb.pos(width, -height, length).endVertex();
+          bb.pos(width, -height, 0.0D).endVertex();
+          bb.pos(width, height, 0.0D).endVertex();
+          bb.pos(width, -height, length).endVertex();
+          bb.pos(width, height, length).endVertex();
+          bb.pos(-width, height, length).endVertex();
+          bb.pos(-width, -height, length).endVertex();
+          tessellator.draw();
+          GlStateManager.popMatrix();
         }
       }
-      GL11.glEnable(2896);
-      GL11.glEnable(3553);
-      GL11.glAlphaFunc(516, 0.1F);
-      GL11.glDisable(3042);
-      GL11.glPopMatrix();
+      GlStateManager.popMatrix();
     }
   }
   

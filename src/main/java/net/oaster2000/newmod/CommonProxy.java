@@ -24,8 +24,6 @@ import net.oaster2000.newmod.handler.ResearchUpdateHandler;
 public class CommonProxy {
 
 	public void preInit(FMLPreInitializationEvent e) {
-		EntityRegistry.registerModEntity(new ResourceLocation(Main.MODID, "firebeam"), EntityFireBeam.class, "firebeam",
-				188000, Main.instance, 100, 100, true);
 	}
 
 	public void Init(FMLInitializationEvent e) {
@@ -42,14 +40,10 @@ public class CommonProxy {
 	}
 
 	@SubscribeEvent
-	public static void registerEntities(RegistryEvent.Register<EntityEntry> event)
-	{
+	public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
 		int ID = 0;
-		EntityEntry firebeam = EntityEntryBuilder.create()
-				.entity(EntityFireBeam.class)
-				.id(new ResourceLocation(Main.MODID, "fire_beam"), ID++)
-				.name("fire_beam")
-				.tracker(100, 100, true)
+		EntityEntry firebeam = EntityEntryBuilder.create().entity(EntityFireBeam.class)
+				.id(new ResourceLocation(Main.MODID, "fire_beam"), ID++).name("fire_beam").tracker(100, 100, true)
 				.build();
 		event.getRegistry().register(firebeam);
 	}

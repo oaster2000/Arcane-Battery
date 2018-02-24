@@ -71,19 +71,20 @@ public class SpellItem extends BasicItem {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		switch (type) {
 		case "fire":
-			shootFireBeam(playerIn);
+			shootFireBeam(playerIn, worldIn);
 			break;
 		}
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 	}
 
-	public static void shootFireBeam(EntityPlayer player)
+	public static void shootFireBeam(EntityPlayer player, World world)
   {
-    EntityFireBeam entity = new EntityFireBeam(player.world, player);
-    if (!player.world.isRemote)
+    EntityFireBeam entity = new EntityFireBeam(world, player);
+    if (!world.isRemote)
     {
+    	System.out.println("Entity Spawning Method Called");
       entity.setPositionAndRotation(player.posX, player.posY + 1.600000023841858D, player.posZ, player.rotationYaw, player.rotationPitch);
-      player.world.spawnEntity(entity);
+      world.spawnEntity(entity);
     }
   }
 
