@@ -4,7 +4,8 @@ public class Mana implements IMana
 
 {
 
-	private float mana = 250.0F;
+	private float mana = 25.0F;
+	private float maxMana = 250.0F;
 
 	public void consume(float points)
 
@@ -34,11 +35,13 @@ public class Mana implements IMana
 	}
 
 	public float getMana()
-
 	{
-
 		return this.mana;
-
+	}
+	
+	public float getMaxMana()
+	{
+		return this.maxMana;
 	}
 
 }

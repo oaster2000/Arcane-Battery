@@ -11,5 +11,7 @@ public interface IMana
 	public void set(float points);
 
 	public float getMana();
+	
+	public float getMaxMana();
 
 }

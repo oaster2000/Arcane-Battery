@@ -24,21 +24,6 @@ public class ManaEventHandler {
 
 	@SubscribeEvent
 
-	public void onPlayerLogsIn(PlayerLoggedInEvent event)
-	{
-
-		EntityPlayer player = event.player;
-		
-		IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
-
-		String message = String.format("Hello there, you have §7%d§r mana left.", (int) mana.getMana());
-
-		player.sendMessage(new TextComponentString(message));
-
-	}
-
-	@SubscribeEvent
-
 	public void onPlayerSleep(PlayerSleepInBedEvent event)
 
 	{
@@ -50,13 +35,13 @@ public class ManaEventHandler {
 
 		IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
 
-		mana.fill(50);
-
-		String message = String.format(
-				"You refreshed yourself in the bed. You received 50 mana, you have §7%d§r mana left.",
-				(int) mana.getMana());
-
-		player.sendMessage(new TextComponentString(message));
+		if (mana.getMana() < mana.getMaxMana()) {
+			if (mana.getMana() + 50 < mana.getMaxMana()) {
+				mana.fill(50);
+			} else {
+				mana.set(mana.getMaxMana());
+			}
+		}
 
 	}
 
@@ -84,12 +69,6 @@ public class ManaEventHandler {
 		{
 
 			mana.consume(cost);
-
-			String message = String.format(
-					"You absorbed fall damage. It costed §7%d§r mana, you have §7%d§r mana left.", (int) cost,
-					(int) mana.getMana());
-
-			player.sendMessage(new TextComponentString(message));
 
 			event.setCanceled(true);
 

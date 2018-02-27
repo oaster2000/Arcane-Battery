@@ -17,7 +17,6 @@ import net.oaster2000.newmod.entity.EntityDigSpell;
 import net.oaster2000.newmod.entity.EntityFireBeam;
 import net.oaster2000.newmod.entity.EntityWaterSphere;
 import net.oaster2000.newmod.entity.renderer.RenderFireBeam;
-import net.oaster2000.newmod.handler.InGameGuiHandler;
 import net.oaster2000.newmod.handler.ItemCraftingHandler;
 import net.oaster2000.newmod.handler.PlayerModelRenderHandler;
 import net.oaster2000.newmod.handler.ResearchUpdateHandler;
@@ -38,7 +37,6 @@ public class ClientProxy extends CommonProxy{
 		MinecraftForge.EVENT_BUS.register(new ItemCraftingHandler());
 		MinecraftForge.EVENT_BUS.register(new ResearchUpdateHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerModelRenderHandler());
-		MinecraftForge.EVENT_BUS.register(new InGameGuiHandler());
 		
 		ItemRenderRegister.registerItemRenderer();
 	    BlockRenderRegister.registerBlockRenderer();
