@@ -71,9 +71,6 @@ public class Main {
 		GameRegistry.registerTileEntity(TileEntityElectricFurnace.class, "TileEntityElectricFurnace");
 		GameRegistry.registerTileEntity(TileEntityDeconstructor.class, "TileEntityDeconstructor");
 		GameRegistry.registerTileEntity(TileEntityStonePedestal.class, "TileEntityStonePedestal");
-
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityStonePedestal.class, new TESRStonePedestal());
-
 	}
 
 	@EventHandler

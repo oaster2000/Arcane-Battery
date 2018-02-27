@@ -12,7 +12,11 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.oaster2000.newmod.capability.IMana;
+import net.oaster2000.newmod.capability.ManaProvider;
+import net.oaster2000.newmod.entity.EntityDigSpell;
 import net.oaster2000.newmod.entity.EntityFireBeam;
+import net.oaster2000.newmod.entity.EntityWaterSphere;
 import net.oaster2000.newmod.utils.VectorUtils;
 
 public class SpellItem extends BasicItem {
@@ -69,23 +73,203 @@ public class SpellItem extends BasicItem {
 	}
 
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		switch (type) {
-		case "fire":
-			shootFireBeam(playerIn, worldIn);
-			break;
+		IMana mana = playerIn.getCapability(ManaProvider.MANA_CAP, null);
+		if (mana.getMana() > 0) {
+			if (!playerIn.isSneaking()) {
+				switch (type) {
+				case "fire":
+					if (mana.getMana() >= 5) {
+						shootFireBeam(playerIn, worldIn);
+						decreaseMana(5, playerIn);
+					}
+					break;
+				case "dig":
+					if (mana.getMana() >= 5) {
+						shootDigSpell(playerIn, worldIn);
+						decreaseMana(5, playerIn);
+					}
+					break;
+				case "water":
+					if (mana.getMana() >= 5) {
+						shootWaterSphere(playerIn, worldIn);
+						decreaseMana(5, playerIn);
+					}
+					break;
+				}
+			} else {
+				switch (type) {
+				case "dig":
+					if (mana.getMana() >= 15) {
+						dig3by3(playerIn, worldIn);
+						decreaseMana(15, playerIn);
+					}
+					break;
+				case "water":
+					if (mana.getMana() >= 10) {
+						playerIn.extinguish();
+						decreaseMana(10, playerIn);
+					}
+					break;
+				}
+			}
 		}
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 	}
 
-	public static void shootFireBeam(EntityPlayer player, World world)
-  {
-    EntityFireBeam entity = new EntityFireBeam(world, player);
-    if (!world.isRemote)
-    {
-    	System.out.println("Entity Spawning Method Called");
-      entity.setPositionAndRotation(player.posX, player.posY + 1.600000023841858D, player.posZ, player.rotationYaw, player.rotationPitch);
-      world.spawnEntity(entity);
-    }
-  }
+	private void decreaseMana(int i, EntityPlayer player) {
+		if (player.world.isRemote)
+			return;
+		IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
+		mana.consume(i);
+	}
+
+	private void dig3by3(EntityPlayer playerIn, World worldIn) {
+		BlockPos centre = new BlockPos(playerIn.getPosition().getX(), playerIn.getPosition().getY() - 1,
+				playerIn.getPosition().getZ());
+		if (worldIn.getBlockState(centre) != null) {
+			playerIn.inventory.addItemStackToInventory(new ItemStack(
+					worldIn.getBlockState(centre).getBlock().getItemDropped(worldIn.getBlockState(centre), itemRand, 0),
+					worldIn.getBlockState(centre).getBlock().quantityDropped(worldIn.getBlockState(centre), 0,
+							itemRand)));
+			playerIn.inventory.addItemStackToInventory(new ItemStack(
+					worldIn.getBlockState(new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ() + 1)).getBlock()
+							.getItemDropped(
+									worldIn.getBlockState(
+											new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ() + 1)),
+									itemRand, 0),
+					worldIn.getBlockState(new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ() + 1)).getBlock()
+							.quantityDropped(
+									worldIn.getBlockState(
+											new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ() + 1)),
+									0, itemRand)));
+			playerIn.inventory
+					.addItemStackToInventory(
+							new ItemStack(
+									worldIn.getBlockState(new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ()))
+											.getBlock()
+											.getItemDropped(worldIn.getBlockState(
+													new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ())),
+													itemRand, 0),
+									worldIn.getBlockState(new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ()))
+											.getBlock()
+											.quantityDropped(worldIn.getBlockState(
+													new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ())), 0,
+													itemRand)));
+			playerIn.inventory.addItemStackToInventory(new ItemStack(
+					worldIn.getBlockState(new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ() - 1)).getBlock()
+							.getItemDropped(
+									worldIn.getBlockState(
+											new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ() - 1)),
+									itemRand, 0),
+					worldIn.getBlockState(new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ() - 1)).getBlock()
+							.quantityDropped(
+									worldIn.getBlockState(
+											new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ() - 1)),
+									0, itemRand)));
+			playerIn.inventory
+					.addItemStackToInventory(
+							new ItemStack(
+									worldIn.getBlockState(new BlockPos(centre.getX(), centre.getY(), centre.getZ() + 1))
+											.getBlock()
+											.getItemDropped(worldIn.getBlockState(
+													new BlockPos(centre.getX(), centre.getY(), centre.getZ() + 1)),
+													itemRand, 0),
+									worldIn.getBlockState(new BlockPos(centre.getX(), centre.getY(), centre.getZ() + 1))
+											.getBlock()
+											.quantityDropped(worldIn.getBlockState(
+													new BlockPos(centre.getX(), centre.getY(), centre.getZ() + 1)), 0,
+													itemRand)));
+			playerIn.inventory
+					.addItemStackToInventory(
+							new ItemStack(
+									worldIn.getBlockState(new BlockPos(centre.getX(), centre.getY(), centre.getZ() - 1))
+											.getBlock()
+											.getItemDropped(worldIn.getBlockState(
+													new BlockPos(centre.getX(), centre.getY(), centre.getZ() - 1)),
+													itemRand, 0),
+									worldIn.getBlockState(new BlockPos(centre.getX(), centre.getY(), centre.getZ() - 1))
+											.getBlock()
+											.quantityDropped(worldIn.getBlockState(
+													new BlockPos(centre.getX(), centre.getY(), centre.getZ() - 1)), 0,
+													itemRand)));
+			playerIn.inventory.addItemStackToInventory(new ItemStack(
+					worldIn.getBlockState(new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ() + 1)).getBlock()
+							.getItemDropped(
+									worldIn.getBlockState(
+											new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ() + 1)),
+									itemRand, 0),
+					worldIn.getBlockState(new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ() + 1)).getBlock()
+							.quantityDropped(
+									worldIn.getBlockState(
+											new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ() + 1)),
+									0, itemRand)));
+			playerIn.inventory
+					.addItemStackToInventory(
+							new ItemStack(
+									worldIn.getBlockState(new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ()))
+											.getBlock()
+											.getItemDropped(worldIn.getBlockState(
+													new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ())),
+													itemRand, 0),
+									worldIn.getBlockState(new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ()))
+											.getBlock()
+											.quantityDropped(worldIn.getBlockState(
+													new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ())), 0,
+													itemRand)));
+			playerIn.inventory.addItemStackToInventory(new ItemStack(
+					worldIn.getBlockState(new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ() - 1)).getBlock()
+							.getItemDropped(
+									worldIn.getBlockState(
+											new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ() - 1)),
+									itemRand, 0),
+					worldIn.getBlockState(new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ() - 1)).getBlock()
+							.quantityDropped(
+									worldIn.getBlockState(
+											new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ() - 1)),
+									0, itemRand)));
+
+			worldIn.setBlockState(centre, Blocks.AIR.getDefaultState());
+			worldIn.setBlockState(new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ() - 1),
+					Blocks.AIR.getDefaultState());
+			worldIn.setBlockState(new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ()),
+					Blocks.AIR.getDefaultState());
+			worldIn.setBlockState(new BlockPos(centre.getX() + 1, centre.getY(), centre.getZ() + 1),
+					Blocks.AIR.getDefaultState());
+			worldIn.setBlockState(new BlockPos(centre.getX(), centre.getY(), centre.getZ() + 1),
+					Blocks.AIR.getDefaultState());
+			worldIn.setBlockState(new BlockPos(centre.getX(), centre.getY(), centre.getZ() - 1),
+					Blocks.AIR.getDefaultState());
+			worldIn.setBlockState(new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ() + 1),
+					Blocks.AIR.getDefaultState());
+			worldIn.setBlockState(new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ()),
+					Blocks.AIR.getDefaultState());
+			worldIn.setBlockState(new BlockPos(centre.getX() - 1, centre.getY(), centre.getZ() - 1),
+					Blocks.AIR.getDefaultState());
+		}
+	}
+
+	public static void shootFireBeam(EntityPlayer player, World world) {
+		if (!world.isRemote) {
+			EntityFireBeam entity = new EntityFireBeam(world, player);
+			entity.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+			world.spawnEntity(entity);
+		}
+	}
+
+	public static void shootWaterSphere(EntityPlayer player, World world) {
+		if (!world.isRemote) {
+			EntityWaterSphere entity = new EntityWaterSphere(world, player);
+			entity.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+			world.spawnEntity(entity);
+		}
+	}
+
+	public static void shootDigSpell(EntityPlayer player, World world) {
+		if (!world.isRemote) {
+			EntityDigSpell entity = new EntityDigSpell(world, player);
+			entity.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+			world.spawnEntity(entity);
+		}
+	}
 
 }

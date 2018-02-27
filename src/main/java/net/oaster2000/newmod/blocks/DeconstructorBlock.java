@@ -46,7 +46,7 @@ public class DeconstructorBlock extends BlockContainer{
 	public DeconstructorBlock(boolean isActive, String unlocalizeName) {
 		super(Material.IRON);
 		this.setUnlocalizedName(unlocalizeName);
-		this.setRegistryName(unlocalizeName);
+		this.setRegistryName("arcanebattery:" + unlocalizeName);
 		this.setHardness(5F);
 		this.setResistance(5F);
 		this.setHarvestLevel("pickaxe", 2);

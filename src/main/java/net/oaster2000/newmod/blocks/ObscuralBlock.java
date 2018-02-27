@@ -26,7 +26,7 @@ public class ObscuralBlock extends Block {
 	public ObscuralBlock(String unlocalizedName, Material material, float hardness, float resistance) {
 		super(material);
 		this.setUnlocalizedName(unlocalizedName);
-		this.setRegistryName(unlocalizedName);
+		this.setRegistryName("arcanebattery:" + unlocalizedName);
 		this.setHardness(hardness);
 		this.setResistance(resistance);
 		this.setLightLevel(8f);

@@ -74,7 +74,7 @@ public final class ModBlocks {
 		@SubscribeEvent
 		public static void registerBlocks(final RegistryEvent.Register<Block> event) {
 			final IForgeRegistry<Block> registry = event.getRegistry();
-
+			createBlocks();
 			final Block[] blocks = { firstBlock, dStone_ore, dStone_ore_nether, aCrucible, macerator, macerator_ON,
 					furnace, furnace_on, gen, gen_on, wire, sunGen, sunGen_on, copperOre, tinOre, silverOre, deCon,
 					deCon_on, obscural, stonePedestal};

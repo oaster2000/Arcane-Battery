@@ -90,6 +90,7 @@ public final class ModItems {
 		 */
 		@SubscribeEvent
 		public static void registerItems(final RegistryEvent.Register<Item> event) {
+			createItems();
 			final Item[] items = { hammer, dStone, dGem, dCrystal, pCrystal, fCrystal,
 					hCrystal, battery, ironDust, goldDust, dDust, stringUniverse, matter,
 					bronze, copper, silver, tin, bronzeDust, copperDust, silverDust,

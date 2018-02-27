@@ -23,7 +23,7 @@ public class WireBlock extends BlockContainer {
 	public WireBlock(String unlocalizedName, Material material, float hardness, float resistance) {
 		super(material);
 		this.setUnlocalizedName(unlocalizedName);
-		this.setRegistryName(unlocalizedName);
+		this.setRegistryName("arcanebattery:" + unlocalizedName);
 		this.setCreativeTab(Main.creativeTab);
 		this.setHardness(hardness);
 		this.setResistance(resistance);
@@ -60,7 +60,7 @@ public class WireBlock extends BlockContainer {
 		TileEntity te = worldIn.getTileEntity(pos);
 		if (te instanceof TileEntityWire) {
 			TileEntityWire wireEntity = (TileEntityWire) te;
-			String isDevice = wireEntity.isNeighborDevice(Minecraft.getMinecraft().world, pos.getX(), pos.getY(), pos.getZ());
+			String isDevice = wireEntity.isNeighborDevice(pos.getX(), pos.getY(), pos.getZ());
 			if (!isDevice.equals("none")) {
 				switch (isDevice) {
 				case "north":

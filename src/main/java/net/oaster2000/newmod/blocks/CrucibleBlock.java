@@ -22,7 +22,7 @@ public class CrucibleBlock extends BlockContainer {
     public CrucibleBlock(String unlocalizedName, Material material, float hardness, float resistance) {
         super(material);
         this.setUnlocalizedName(unlocalizedName);
-        this.setRegistryName(unlocalizedName);
+        this.setRegistryName("arcanebattery:" + unlocalizedName);
 		this.setCreativeTab(Main.creativeTab);
         this.setHardness(hardness);
         this.setResistance(resistance);

@@ -189,7 +189,7 @@ public class TileEntityWire extends TileEntityEnergyDevice implements ITickable 
 		return false;
 	}
 
-	public String isNeighborDevice(World world, int x, int y, int z) {
+	public String isNeighborDevice(int x, int y, int z) {
 		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y, z - 1)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y, z + 1)) instanceof TileEntityEnergyDevice)) {
 			return "upnorthsouth";
 		}

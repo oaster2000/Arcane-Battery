@@ -25,7 +25,6 @@ public class ManaEventHandler {
 	@SubscribeEvent
 
 	public void onPlayerLogsIn(PlayerLoggedInEvent event)
-
 	{
 
 		EntityPlayer player = event.player;

@@ -30,6 +30,9 @@ item.ironPlate.name=Iron Plate
 item.goldPlate.name=Gold Plate
 item.hammer.name=Hammer
 item.magicalTome.name=Magical Tome
+item.firespell.name=Fireball
+item.waterspell.name=Water Sphere
+item.digspell.name=Digging Spell
 
 tile.firstblock.name=Concrete
 tile.dstone_ore.name=Decider Stone Ore
