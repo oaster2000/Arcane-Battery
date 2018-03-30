@@ -1,8 +1,9 @@
 {
     "parent": "block/orientable",
     "textures": {
-        "top": "arcanebattery:blocks/solarPanel",
+        "up": "arcanebattery:blocks/solarPanel",
         "front": "blocks/iron_block",
-        "side": "blocks/iron_block"
+        "side": "blocks/iron_block",
+        "down": "blocks/iron_block"
     }
 }

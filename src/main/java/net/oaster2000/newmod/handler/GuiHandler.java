@@ -5,7 +5,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import net.oaster2000.newmod.container.ContainerCrucible;
 import net.oaster2000.newmod.container.ContainerDeconstructor;
 import net.oaster2000.newmod.container.ContainerElectricFurnace;
 import net.oaster2000.newmod.container.ContainerGenerator;
@@ -13,14 +12,12 @@ import net.oaster2000.newmod.container.ContainerMacerator;
 import net.oaster2000.newmod.container.ContainerSolarGenerator;
 import net.oaster2000.newmod.gui.GUIObscural;
 import net.oaster2000.newmod.gui.GUITome;
-import net.oaster2000.newmod.gui.GuiCrucible;
 import net.oaster2000.newmod.gui.GuiDeconstructor;
 import net.oaster2000.newmod.gui.GuiElectricFurnace;
 import net.oaster2000.newmod.gui.GuiGenerator;
 import net.oaster2000.newmod.gui.GuiMacerator;
 import net.oaster2000.newmod.gui.GuiSolarGenerator;
 import net.oaster2000.newmod.tileentity.MaceratorTileEntity;
-import net.oaster2000.newmod.tileentity.TileEntityCrucible;
 import net.oaster2000.newmod.tileentity.TileEntityDeconstructor;
 import net.oaster2000.newmod.tileentity.TileEntityElectricFurnace;
 import net.oaster2000.newmod.tileentity.TileEntityGenerator;
@@ -34,10 +31,6 @@ public class GuiHandler implements IGuiHandler {
 
 		if (entity != null) {
 			switch (ID) {
-			case 0:
-				if (entity instanceof TileEntityCrucible) {
-					return new ContainerCrucible(player.inventory, (TileEntityCrucible) entity);
-				}
 			case 1:
 				if (entity instanceof MaceratorTileEntity) {
 					return new ContainerMacerator(player.inventory, (MaceratorTileEntity) entity);
@@ -76,10 +69,6 @@ public class GuiHandler implements IGuiHandler {
 		TileEntity entity = world.getTileEntity(new BlockPos(x, y, z));
 		if (entity != null) {
 			switch (ID) {
-			case 0:
-				if (entity instanceof TileEntityCrucible) {
-					return new GuiCrucible(player.inventory, (TileEntityCrucible) entity);
-				}
 			case 1:
 				if (entity instanceof MaceratorTileEntity) {
 					return new GuiMacerator(player.inventory, (MaceratorTileEntity) entity);

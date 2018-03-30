@@ -57,3 +57,11 @@ tile.obscural.name=Obscural
 tile.stonePedestal.name=Stone Pedestal
 
 itemGroup.arcanebattery=Arcane Battery
+
+research.start.title=The Journey Begins
+research.faith.title=Be Faithful
+research.hope.title=Be Hopeful
+research.power.title=Be Powerful
+research.obscural.title=Infusing the Crystals
+
+research.start.desc=You have found this magical tome, a guide to the world of magic. Start by creating the Obscural and surrounding it with stone in the pattern shown.

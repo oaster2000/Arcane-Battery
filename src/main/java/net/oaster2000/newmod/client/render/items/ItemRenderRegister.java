@@ -42,6 +42,9 @@ public class ItemRenderRegister {
 		reg(ModItems.fireSpell);
 		reg(ModItems.waterSpell);
 		reg(ModItems.digSpell);
+		reg(ModItems.armorSpell);
+		reg(ModItems.manaCake);
+		reg(ModItems.manaCookie);
 	}
 	
 	public static void reg(Item item){

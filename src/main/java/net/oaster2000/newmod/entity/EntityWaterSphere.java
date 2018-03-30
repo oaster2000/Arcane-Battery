@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class EntityWaterSphere extends EntityThrowable implements IEntityAdditionalSpawnData {
 	public Entity shootingEntity;
-	private float damage = 10.0F;
+	private float damage = 7.5F;
 	private int breakingTime;
 	private int prevBreakingTime;
 	private int field_75358_j = -1;
@@ -57,7 +57,7 @@ public class EntityWaterSphere extends EntityThrowable implements IEntityAdditio
 			if (this.shootingEntity != null) {
 				if (hitPos.entityHit != null) {
 					if ((hitPos.entityHit instanceof EntityLivingBase)) {
-						EntityLiving entity = (EntityLiving) hitPos.entityHit;
+						EntityLivingBase entity = (EntityLivingBase) hitPos.entityHit;
 						entity.attackEntityFrom(DamageSource.MAGIC, this.damage);
 						entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS));
 					}

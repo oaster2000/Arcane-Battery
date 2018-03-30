@@ -43,6 +43,9 @@ public final class ModItems {
 	public static Item fireSpell;
 	public static Item waterSpell;
 	public static Item digSpell;
+	public static Item armorSpell;
+	public static Item manaCake;
+	public static Item manaCookie;
 
 	public static void createItems() {
 		hammer = (new HammerItem("hammer"));
@@ -76,6 +79,9 @@ public final class ModItems {
 		fireSpell = (new SpellItem("firespell", "fire", "power"));
 		waterSpell = (new SpellItem("waterspell", "water", "power"));
 		digSpell = (new SpellItem("digspell", "dig", "faith"));
+		armorSpell = (new SpellItem("armorspell", "armor", "hope"));
+		manaCake = (new ManaFoodItem(5, 1.5F, false, 50, "manacake"));
+		manaCookie = (new ManaFoodItem(3, 1.5F, false, 25, "manacookie"));
 	}
 
 	@Mod.EventBusSubscriber(modid = Main.MODID)
@@ -95,7 +101,8 @@ public final class ModItems {
 					hCrystal, battery, ironDust, goldDust, dDust, stringUniverse, matter,
 					bronze, copper, silver, tin, bronzeDust, copperDust, silverDust,
 					tinDust, bronzePlate, copperPlate, silverPlate, tinPlate, ironPlate,
-					goldPlate, magicalTome, fireSpell, waterSpell, digSpell};
+					goldPlate, magicalTome, fireSpell, waterSpell, digSpell, manaCake, manaCookie,
+					armorSpell};
 
 			final IForgeRegistry<Item> registry = event.getRegistry();
 

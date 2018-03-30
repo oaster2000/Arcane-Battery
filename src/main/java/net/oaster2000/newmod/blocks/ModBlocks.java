@@ -37,6 +37,7 @@ public final class ModBlocks {
 	public static Block deCon_on;
 	public static Block obscural;
 	public static Block stonePedestal;
+	public static Block energysyphoner;
 
 	public static void createBlocks() {
 		firstBlock = (new StrongBlock("firstblock"));
@@ -59,6 +60,7 @@ public final class ModBlocks {
 		deCon_on = (new DeconstructorBlock(true, "decon_on"));
 		obscural = (new ObscuralBlock("obscural")).setCreativeTab(Main.creativeTab);
 		stonePedestal = (new StonePedestalBlock("stonePedestal")).setCreativeTab(Main.creativeTab);
+		energysyphoner = (new EnergySyphonerBlock("energysyphoner"));
 	}
 
 	@Mod.EventBusSubscriber(modid = Main.MODID)
@@ -77,7 +79,7 @@ public final class ModBlocks {
 			createBlocks();
 			final Block[] blocks = { firstBlock, dStone_ore, dStone_ore_nether, aCrucible, macerator, macerator_ON,
 					furnace, furnace_on, gen, gen_on, wire, sunGen, sunGen_on, copperOre, tinOre, silverOre, deCon,
-					deCon_on, obscural, stonePedestal};
+					deCon_on, obscural, stonePedestal, energysyphoner};
 
 			registry.registerAll(blocks);
 		}
@@ -95,7 +97,7 @@ public final class ModBlocks {
 					new ItemBlock(macerator_ON), new ItemBlock(furnace), new ItemBlock(furnace_on), new ItemBlock(gen),
 					new ItemBlock(gen_on), new ItemBlock(wire), new ItemBlock(sunGen), new ItemBlock(sunGen_on),
 					new ItemBlock(copperOre), new ItemBlock(tinOre), new ItemBlock(silverOre), new ItemBlock(deCon),
-					new ItemBlock(deCon_on),  new ItemBlock(obscural), new ItemBlock(stonePedestal)};
+					new ItemBlock(deCon_on),  new ItemBlock(obscural), new ItemBlock(stonePedestal), new ItemBlock(energysyphoner)};
 
 			final IForgeRegistry<Item> registry = event.getRegistry();
 

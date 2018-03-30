@@ -6,9 +6,9 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,6 +17,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.oaster2000.newmod.capability.ArcaneBatteryPacketHandler;
+import net.oaster2000.newmod.capability.IMana;
+import net.oaster2000.newmod.capability.ManaProvider;
+import net.oaster2000.newmod.capability.ManaSyncMessage;
 import net.oaster2000.newmod.items.ModItems;
 import net.oaster2000.newmod.obscural.ObscuralRecipies;
 import net.oaster2000.newmod.tileentity.TileEntityStonePedestal;
@@ -48,7 +52,7 @@ public class ObscuralBlock extends Block {
 					ItemStack stackInSlot = playerIn.inventory.getStackInSlot(i);
 					ItemStack stack = new ItemStack(ModItems.dCrystal);
 					if (stackInSlot.getItem().equals(stack.getItem())) {
-						stack.shrink(1);
+						stack.damageItem(5, playerIn);
 						playerIn.inventory.setInventorySlotContents(i, stack);
 						break;
 					}
@@ -65,18 +69,18 @@ public class ObscuralBlock extends Block {
 	}
 
 	public void createItem(World world, Item item, BlockPos pos, EntityPlayer playerIn, IBlockState state) {
+		IMana mana = playerIn.getCapability(ManaProvider.MANA_CAP, null);
 		for (ObscuralRecipies recipe : ObscuralRecipies.recipies) {
-			if (recipe.getCentralItem().equals(item) && checkRecipie(world, recipe, pos.getX(), pos.getY(), pos.getZ(), state)) {
+			if (recipe.getCentralItem().equals(item) && checkRecipie(world, recipe, pos.getX(), pos.getY(), pos.getZ(), state) && mana.getMana() >= recipe.getCost()) {
 				updateBlocks(world, pos.getX(), pos.getY(), pos.getZ());
+				decreaseMana(recipe.getCost(), playerIn);
 				if (!world.isRemote)
 					world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY() + 1, pos.getZ(),
 							new ItemStack(recipe.getResult())));
 				for (int j = 0; j < playerIn.inventory.getSizeInventory(); j++) {
 					ItemStack stackInSlot = playerIn.inventory.getStackInSlot(j);
-					ItemStack stack = new ItemStack(recipe.centralItem);
-					if (stackInSlot.getItem().equals(stack.getItem())) {
-						stack.shrink(1);
-						playerIn.inventory.setInventorySlotContents(j, stack);
+					if (stackInSlot.getItem().equals(recipe.centralItem)) {
+						stackInSlot.shrink(1);
 						break;
 					}
 
@@ -84,6 +88,14 @@ public class ObscuralBlock extends Block {
 				break;
 			}
 		}
+	}
+	
+	private void decreaseMana(int i, EntityPlayer player) {
+		if (player.world.isRemote)
+			return;
+		IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
+		mana.consume(i);
+		ArcaneBatteryPacketHandler.INSTANCE.sendTo(new ManaSyncMessage(mana.getMana()), (EntityPlayerMP) player);
 	}
 
 	private void updateBlocks(World world, int x, int y, int z) {

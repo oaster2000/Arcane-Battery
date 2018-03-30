@@ -1,27 +1,70 @@
 {
-	"forge_marker": 1,
-	"defaults": {},
-    "variants": {
-		"connection": {
-			"none": { "model": "arcanebattery:cable_dot" },
-			"ud": { "model": "arcanebattery:cable" },
-			"un": { "model": "arcanebattery:cable_un" },
-			"uns": { "model": "arcanebattery:cable_uns" },
-			"une": { "model": "arcanebattery:cable_une" },
-			"unw": { "model": "arcanebattery:cable_unw" },
-			"us": { "model": "arcanebattery:cable_us" },
-			"use": { "model": "arcanebattery:cable_use" },
-			"usw": { "model": "arcanebattery:cable_usw" },
-			"ue": { "model": "arcanebattery:cable_ue" },
-			"uew": { "model": "arcanebattery:cable_uew" },
-			"uw": { "model": "arcanebattery:cable_uw" },
-			"u": { "model": "arcanebattery:cable_u" },
-			"d": { "model": "arcanebattery:cable_d" },
-			"n": { "model": "arcanebattery:cable_n" },
-			"s": { "model": "arcanebattery:cable_s" },
-			"e": { "model": "arcanebattery:cable_e" },
-			"w": { "model": "arcanebattery:cable_w" },
-			"all": { "model": "arcanebattery:cable" }
-		}
-    }
+    "multipart": [
+        {   "when": { "north": true },
+            "apply": { "model": "arcanebattery:cable_side" }
+        },
+        {   "when": { "east": true },
+            "apply": { "model": "arcanebattery:cable_side", "y": 90, "uvlock": true }
+        },
+        {   "when": { "south": true },
+            "apply": { "model": "arcanebattery:cable_side", "y": 180, "uvlock": true }
+        },
+        {   "when": { "west": true },
+            "apply": { "model": "arcanebattery:cable_side", "y": 270, "uvlock": true }
+        },
+        {   "when": { "up": true },
+            "apply": { "model": "arcanebattery:cable_side", "x": 270, "uvlock": true }
+        },
+        {   "when": { "down": true },
+            "apply": { "model": "arcanebattery:cable_side", "x": 90, "uvlock": true }
+        },
+        {   "when": { "north": false },
+            "apply": [
+                { "model": "arcanebattery:cable_dot", "weight": 2 },
+                { "model": "arcanebattery:cable_dot" },
+                { "model": "arcanebattery:cable_dot" },
+                { "model": "arcanebattery:cable_dot" }
+            ]
+        },
+        {   "when": { "east": false },
+            "apply": [
+                { "model": "arcanebattery:cable_dot", "y": 90, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "y": 90, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "y": 90, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "weight": 2, "y": 90, "uvlock": true }
+            ]
+        },
+        {   "when": { "south": false },
+            "apply": [
+                { "model": "arcanebattery:cable_dot", "y": 180, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "y": 180, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "weight": 2, "y": 180, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "y": 180, "uvlock": true }
+            ]
+        },
+        {   "when": { "west": false },
+            "apply": [
+                { "model": "arcanebattery:cable_dot", "y": 270, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "weight": 2, "y": 270, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "y": 270, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "y": 270, "uvlock": true }
+            ]
+        },
+        {   "when": { "up": false },
+            "apply": [
+                { "model": "arcanebattery:cable_dot", "weight": 2, "x": 270, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "x": 270, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "x": 270, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "x": 270, "uvlock": true }
+            ]
+        },
+        {   "when": { "down": false },
+            "apply": [
+                { "model": "arcanebattery:cable_dot", "x": 90, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "x": 90, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "x": 90, "uvlock": true },
+                { "model": "arcanebattery:cable_dot", "weight": 2, "x": 90, "uvlock": true }
+            ]
+        }
+    ]
 }

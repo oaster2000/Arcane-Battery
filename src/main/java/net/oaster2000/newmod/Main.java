@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.oaster2000.newmod.blocks.ModBlocks;
+import net.oaster2000.newmod.capability.ArcaneBatteryPacketHandler;
 import net.oaster2000.newmod.crafting.CraftingHandler;
 import net.oaster2000.newmod.creativetabs.TutorialTab;
 import net.oaster2000.newmod.entity.EntityFireBeam;
@@ -54,6 +55,7 @@ public class Main {
 		proxy.preInit(e);
 		ModItems.createItems();
 		ModBlocks.createBlocks();
+		ArcaneBatteryPacketHandler.init();
 	}
 
 	@EventHandler

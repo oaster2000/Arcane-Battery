@@ -1,10 +1,14 @@
 package net.oaster2000.newmod.items;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockAir;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -17,6 +21,7 @@ import net.oaster2000.newmod.capability.ManaProvider;
 import net.oaster2000.newmod.entity.EntityDigSpell;
 import net.oaster2000.newmod.entity.EntityFireBeam;
 import net.oaster2000.newmod.entity.EntityWaterSphere;
+import net.oaster2000.newmod.utils.ManaUtils;
 import net.oaster2000.newmod.utils.VectorUtils;
 
 public class SpellItem extends BasicItem {
@@ -67,6 +72,9 @@ public class SpellItem extends BasicItem {
 						worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, x, y, z, 0D, 0D, 0D, args);
 					}
 					break;
+				case "armor":
+					worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, x, y, z, 0D, 0D, 0D, new int[] {Block.getIdFromBlock(Blocks.DIRT)});
+					break;
 				}
 			}
 		}
@@ -95,6 +103,12 @@ public class SpellItem extends BasicItem {
 						decreaseMana(5, playerIn);
 					}
 					break;
+				case "armor":
+					if (mana.getMana() >= 5) {
+						createArmor(playerIn, worldIn);
+						decreaseMana(5, playerIn);
+					}
+					break;
 				}
 			} else {
 				switch (type) {
@@ -105,15 +119,20 @@ public class SpellItem extends BasicItem {
 					}
 					break;
 				case "water":
-					if (mana.getMana() >= 10) {
+					if (mana.getMana() >= 1 && playerIn.isBurning()) {
 						playerIn.extinguish();
-						decreaseMana(10, playerIn);
+						decreaseMana(1, playerIn);
 					}
 					break;
 				}
 			}
+			ManaUtils.syncMana(playerIn);
 		}
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+	}
+
+	private void createArmor(EntityPlayer playerIn, World worldIn) {
+		playerIn.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 3));
 	}
 
 	private void decreaseMana(int i, EntityPlayer player) {

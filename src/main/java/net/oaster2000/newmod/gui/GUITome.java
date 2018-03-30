@@ -1,11 +1,13 @@
 package net.oaster2000.newmod.gui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Color;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.RenderItem;
@@ -51,11 +53,24 @@ public class GUITome extends GuiScreen {
 		this.drawTexturedModalRect(i + 4, j + 4, 0, 0, 248, 198);
 		this.mc.getTextureManager().bindTexture(FG_GUI_TEXTURES);
 		this.drawTexturedModalRect(i, j, 0, 0, 256, 206);
-
 		drawResearch(i, j);
-
 		super.drawScreen(mouseX, mouseY, partialTicks);
+	}
 
+	protected void mouseClicked(int mx, int my, int mouseButton) throws IOException
+    {
+		int i = ((this.width - 256) / 2);
+		int j = ((this.height - 206) / 2);
+		int i1 = ((this.width - 256) / 2);
+		int j1 = ((this.height - 256) / 2);
+		for (Research r : research) {
+			if (isInRect(r.y + i, r.x + j, 24, 24, mx, my) && !r.getState().equals(EnumResearchState.HIDDEN)) {
+				if (mouseButton == 0){
+					mc.addScheduledTask(() -> 
+					mc.displayGuiScreen(new ResearchGui(r.getStringID(), r.hasCrafting(), i1, j1)));
+		        }
+			}
+		}
 	}
 
 	private void drawResearch(int i, int j) {
@@ -118,9 +133,9 @@ public class GUITome extends GuiScreen {
 			int childX = x + child.getX() + 12;
 			int childY = y + child.getY() + 12;
 
-			if(!child.getState().equals(EnumResearchState.HIDDEN)) {
-			drawLine(parentX, parentY, childX, childY);
-			}	
+			if (!child.getState().equals(EnumResearchState.HIDDEN)) {
+				drawLine(parentX, parentY, childX, childY);
+			}
 		}
 	}
 
@@ -148,5 +163,9 @@ public class GUITome extends GuiScreen {
 
 		GL11.glDepthMask(true);
 		GL11.glPopAttrib();
+	}
+
+	public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
+		return ((mouseX >= x && mouseX <= x + xSize) && (mouseY >= y && mouseY <= y + ySize));
 	}
 }

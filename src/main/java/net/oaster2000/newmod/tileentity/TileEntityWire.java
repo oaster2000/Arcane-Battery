@@ -1,7 +1,6 @@
 package net.oaster2000.newmod.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -189,59 +188,12 @@ public class TileEntityWire extends TileEntityEnergyDevice implements ITickable 
 		return false;
 	}
 
-	public String isNeighborDevice(int x, int y, int z) {
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y, z - 1)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y, z + 1)) instanceof TileEntityEnergyDevice)) {
-			return "upnorthsouth";
+	public boolean isNeighborDevice(BlockPos pos) {
+		if(world.getTileEntity(pos) instanceof TileEntityEnergyDevice) {
+			return true;
+		}else {
+			return false;
 		}
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x - 1, y, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x + 1, y, z)) instanceof TileEntityEnergyDevice)) {
-			return "upeastwest";
-		}
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x - 1, y, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y, z - 1)) instanceof TileEntityEnergyDevice)) {
-			return "upnortheast";
-		}
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y, z - 1)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x + 1, y, z)) instanceof TileEntityEnergyDevice)) {
-			return "upnorthwest";
-		}
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x - 1, y, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y, z + 1)) instanceof TileEntityEnergyDevice)) {
-			return "upsoutheast";
-		}
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y, z + 1)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x + 1, y, z)) instanceof TileEntityEnergyDevice)) {
-			return "upsouthwest";
-		}
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y - 1, z)) instanceof TileEntityEnergyDevice)) {
-			return "updown";
-		}
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y, z - 1)) instanceof TileEntityEnergyDevice)) {
-			return "upnorth";
-		}
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x, y, z + 1)) instanceof TileEntityEnergyDevice)) {
-			return "upsouth";
-		}
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x - 1, y, z)) instanceof TileEntityEnergyDevice)) {
-			return "upeast";
-		}
-		if ((world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) && (world.getTileEntity(new BlockPos(x + 1, y, z)) instanceof TileEntityEnergyDevice)) {
-			return "upwest";
-		}
-		if (world.getTileEntity(new BlockPos(x + 1, y, z)) instanceof TileEntityEnergyDevice) {
-			return "west";
-		}
-		if (world.getTileEntity(new BlockPos(x - 1, y, z)) instanceof TileEntityEnergyDevice) {
-			return "east";
-		}
-		if (world.getTileEntity(new BlockPos(x, y + 1, z)) instanceof TileEntityEnergyDevice) {
-			return "up";
-		}
-		if (world.getTileEntity(new BlockPos(x, y - 1, z)) instanceof TileEntityEnergyDevice) {
-			return "down";
-		}
-		if (world.getTileEntity(new BlockPos(x, y, z + 1)) instanceof TileEntityEnergyDevice) {
-			return "south";
-		}
-		if (world.getTileEntity(new BlockPos(x, y, z - 1)) instanceof TileEntityEnergyDevice) {
-			return "north";
-		}
-		return "none";
 	}
 	
 	public void readFromNBT(NBTTagCompound compound)

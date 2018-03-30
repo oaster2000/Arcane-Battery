@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,8 @@ public class Research {
     private final List<Research> children = new ArrayList<Research>();
     private ItemStack icon;
     private String name;
+    private String identifier;
+    private boolean showCraftingOnPage;
     
     private boolean showToast;
     
@@ -30,10 +33,14 @@ public class Research {
     public int y;
 	
 	public Research(int id, @Nullable Research parent, String type, Item icon) {
-		this(id, parent, type, icon, 0, 0, EnumResearchState.UNDISCOVERED, "");
+		this(id, parent, type, icon, 0, 0, EnumResearchState.UNDISCOVERED, "", "", false);
 	}
 	
-	public Research(int id, @Nullable Research parent, String type, Item icon, int x, int y, EnumResearchState state, String name) {
+	public Research(int id, @Nullable Research parent, String type, Block icon, int x, int y, EnumResearchState state, String name, String identifier, boolean showCrafting) {
+		this(id, parent, type, Item.getItemFromBlock(icon), x, y, state, name, identifier, showCrafting);
+	}
+	
+	public Research(int id, @Nullable Research parent, String type, Item icon, int x, int y, EnumResearchState state, String name, String identifier, boolean showCrafting) {
 		this.id = id;
 		this.type = type;
 		this.parent = parent;
@@ -43,6 +50,8 @@ public class Research {
 		this.x = x;
 		this.y = y;
 		this.name = name;
+		this.identifier = identifier;
+		showCraftingOnPage = showCrafting;
 		initShowToast(state);
 	}
 	
@@ -73,6 +82,11 @@ public class Research {
     public String getName()
     {
         return this.name;
+    }
+    
+    public String getStringID()
+    {
+        return this.identifier;
     }
     
     public ItemStack getIcon() {
@@ -133,6 +147,10 @@ public class Research {
     
     public int getID() {
     	return id;
+    }
+    
+    public boolean hasCrafting() {
+    	return showCraftingOnPage;
     }
     
     public static enum EnumResearchState implements IStringSerializable {

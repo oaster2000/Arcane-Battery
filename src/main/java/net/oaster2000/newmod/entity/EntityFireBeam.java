@@ -53,8 +53,8 @@ public class EntityFireBeam extends EntityThrowable implements IEntityAdditional
 			if (this.shootingEntity != null) {
 				if (hitPos.entityHit != null) {
 					if ((hitPos.entityHit instanceof EntityLivingBase)) {
-						hitPos.entityHit.attackEntityFrom(DamageSource.MAGIC, this.damage);
 						hitPos.entityHit.setFire(5);
+						hitPos.entityHit.attackEntityFrom(DamageSource.MAGIC, this.damage);
 					}
 				}
 			}

@@ -10,7 +10,6 @@ import net.oaster2000.newmod.Main;
 public class CapabilityHandler {
 	
 	public static final ResourceLocation MANA_CAP = new ResourceLocation(Main.MODID, "mana");
-
 	
 	@SubscribeEvent
 	public void attachCapability(AttachCapabilitiesEvent<Entity> event){

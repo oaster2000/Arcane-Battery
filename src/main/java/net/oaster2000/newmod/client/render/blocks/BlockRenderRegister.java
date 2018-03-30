@@ -32,6 +32,7 @@ public final class BlockRenderRegister {
 		reg(ModBlocks.deCon_on);
 		reg(ModBlocks.obscural);
 		reg(ModBlocks.stonePedestal);
+		reg(ModBlocks.energysyphoner);
 	}
 
 	public static void reg(Block block) {

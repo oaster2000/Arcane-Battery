@@ -8,14 +8,11 @@ public class Mana implements IMana
 	private float maxMana = 250.0F;
 
 	public void consume(float points)
-
 	{
-
 		this.mana -= points;
 
 		if (this.mana < 0.0F)
 			this.mana = 0.0F;
-
 	}
 
 	public void fill(float points)
